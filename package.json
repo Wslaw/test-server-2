@@ -1,22 +1,20 @@
 {
-  "name": "test-server-2",
+  "name": "goit-node-rest-api",
   "type": "module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.1.0"
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.3",
-    "nanoid": "^5.0.6"
+    "express": "^4.18.2",
+    "joi": "^17.12.2",
+    "mongoose": "^8.2.2",
+    "morgan": "^1.10.0",
+    "nanoid": "^5.0.6",
+    "sequelize": "^6.37.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }

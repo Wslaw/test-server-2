@@ -1,22 +1,39 @@
 import express from "express";
-import tasksRouter from "./routers/tasksRouter.js";
+import morgan from "morgan";
 import cors from "cors";
+import mongoose from "mongoose";
 
+import moviesRouter from "./routes/moviesRouter.js";
+import contactsRouter from "./routes/contactsRouter.js";
 
 const app = express();
 
+app.use(morgan("tiny"));
+app.use(cors());
 app.use(express.json());
 
-app.use(cors());
+app.use("/api/movies", moviesRouter);
+app.use("/api/contacts", contactsRouter);
 
-app.use("/tasks", tasksRouter);
-app.use((error, req, res, next) => {
-    const { message, status = 500 } = error;
-    
-    res.status(status).send(message ? message : "Internal server error");
+app.use((_, res) => {
+  res.status(404).json({ message: "Route not found" });
 });
 
-
-app.listen(3003, () => {
-  console.log("Server is running on port 3003");
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
 });
+
+// app.listen(3005, () => {
+//   console.log("Server is running. Use our API on port: 3005");
+// });
+
+const DB_HOST= "mongodb+srv://Vova:Slava2560@cluster0.7vl3cog.mongodb.net/my-movies?retryWrites=true&w=majority&appName=Cluster0"
+mongoose.connect(DB_HOST)
+  .then(() => { app.listen(3005, () => {
+    console.log("Server is running. Use our API on port: 3005");
+  });})
+  .catch(error => {
+    console.error(error.message);
+    process.exit(1);/*зупиняє процесс виконання проги якщо помилка*/
+  })
