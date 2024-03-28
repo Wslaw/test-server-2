@@ -37,3 +37,4 @@ mongoose.connect(DB_HOST)
     console.error(error.message);
     process.exit(1);/*зупиняє процесс виконання проги якщо помилка*/
   })
+// User-1
